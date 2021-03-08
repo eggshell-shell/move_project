@@ -1,6 +1,12 @@
 <template>
   <div class="login-container">
-    <van-nav-bar class="van-nav-bar" title="登录" />
+    <van-nav-bar class="van-nav-bar" title="登录">
+      <van-icon
+        slot="left"
+        name="arrow-left"
+        @click="$router.back()"
+      ></van-icon>
+    </van-nav-bar>
     <van-form ref="loginFrom" @submit="onSubmit">
       <van-field
         v-model="user.mobile"
@@ -88,6 +94,7 @@ export default {
         const { data } = await login(user);
         this.$toast.success("登陆成功");
         this.$store.commit("setUser", data.data);
+        this.$router.back();
       } catch (err) {
         if (err.response.status === 400) {
           this.$toast.fail("验证码错误");
@@ -133,6 +140,11 @@ export default {
   .submit_login {
     background-color: #6db4fb;
     border-radius: 10px;
+  }
+  .van-icon {
+    font-size: 40px;
+    font-weight: 900;
+    color: #fff;
   }
 }
 body {

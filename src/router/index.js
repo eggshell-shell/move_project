@@ -5,9 +5,36 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', redirect: '/login' },
   {
     path: '/login', name: 'login', component: () => import('@/views/login')
+  },
+  {
+    path: '/',
+    // name: 'layout',
+    component: () => import('@/views/layout'),
+    children: [
+      {
+        path: '',
+        name: 'home',
+        component: () => import('@/views/home')
+      },
+      {
+        path: '/questions',
+        name: 'questions',
+        component: () => import('@/views/questions')
+      },
+      {
+        path: '/video',
+        name: 'video',
+        component: () => import('@/views/video')
+      },
+      {
+        path: '/my',
+        name: 'my',
+        component: () => import('@/views/my')
+      }
+    ]
+
   },
 
 ]
