@@ -1,7 +1,5 @@
 <template>
   <div id="app">
-    <h1>头疼</h1>
-    <i class="iconfont iconshouye"></i>
     <!-- 路由出口 -->
     <router-view />
   </div>

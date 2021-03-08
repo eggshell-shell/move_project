@@ -75,3 +75,9 @@
 .iconlishi:before {
   content: "\e618";
 }
+.van-nav-bar {
+  background-color: #3296fa;
+}
+.van-nav-bar .van-nav-bar__title {
+  color: #ffffff;
+}
