@@ -41,7 +41,7 @@ export default {
 <style lang="less" scoped>
 .home-container {
   .van-tabbar {
-    height: 200px;
+    height: 150px;
     background-color: rgba(0, 0, 0, 0.3);
     i {
       font-size: 50px;

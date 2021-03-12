@@ -4,13 +4,8 @@
     <div v-if="user" class="header user-info">
       <div class="base-info">
         <div class="left">
-          <van-image
-            class="avatar"
-            src="https://img01.yzcdn.cn/vant/cat.jpeg"
-            round
-            fit="cover"
-          />
-          <span class="name">牛</span>
+          <van-image class="avatar" :src="userInfo.photo" round fit="cover" />
+          <span class="name">{{ userInfo.name }}</span>
         </div>
         <div class="right">
           <van-button size="mini" round>编辑资料</van-button>
@@ -18,19 +13,19 @@
       </div>
       <div class="data-stats">
         <div class="data-item">
-          <span class="count">23</span>
+          <span class="count">{{ userInfo.art_count }}</span>
           <span class="text">头条</span>
         </div>
         <div class="data-item">
-          <span class="count">456</span>
+          <span class="count">{{ userInfo.follow_count }}</span>
           <span class="text">关注</span>
         </div>
         <div class="data-item">
-          <span class="count">34443</span>
+          <span class="count">{{ userInfo.fans_count }}</span>
           <span class="text">粉丝</span>
         </div>
         <div class="data-item">
-          <span class="count">312345</span>
+          <span class="count">{{ userInfo.like_count }}</span>
           <span class="text">获赞</span>
         </div>
       </div>
@@ -49,11 +44,11 @@
     <!-- 宫格导航 -->
     <van-grid class="grid-nav mb-9" :column-num="2" clickable>
       <van-grid-item class="grid-item">
-        <i slot="icon" class="iconfont iconshoucang"></i>
+        <i slot="icon" class="toutiao toutiao-shoucang"></i>
         <span slot="text" class="text">收藏</span>
       </van-grid-item>
       <van-grid-item class="grid-item">
-        <i slot="icon" class="iconfont iconlishi"></i>
+        <i slot="icon" class="toutiao toutiao-lishi"></i>
         <span slot="text" class="text">历史</span>
       </van-grid-item>
     </van-grid>
@@ -72,16 +67,22 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
-import { setItem } from "@/utils/storage";
+import { mapState, mapMutations, mapActions, mapGetters } from "vuex";
+import { setItem, removeItem } from "@/utils/storage";
+import { getUserInfo } from "@/api/user";
 
 export default {
   name: "My_Index",
   data() {
-    return {};
+    return {
+      userInfo: {},
+    };
   },
   computed: {
     ...mapState(["user"]),
+  },
+  created() {
+    if (this.user) this.loadUserInfo();
   },
   methods: {
     out_login() {
@@ -91,10 +92,20 @@ export default {
           message: "你即将退出登录",
         })
         .then(() => {
-          setItem("Token_key", null);
-          // this.$router.push("/login");
+          removeItem("Token_key");
+          this.$store.commit("setUser");
+          this.$toast.success("退出成功");
         })
         .catch(() => {});
+    },
+    async loadUserInfo() {
+      try {
+        const { data } = await getUserInfo();
+        this.userInfo = data.data;
+      } catch (err) {
+        console.log(err);
+        this.$toast("获取数据异常，稍后尝试");
+      }
     },
   },
 };

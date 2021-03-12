@@ -15,6 +15,6 @@ export const getItem = key => {
     }
 }
 
-export const delItem = key => {
+export const removeItem = key => {
     window.localStorage.removeItem(key)
 }

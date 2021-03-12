@@ -89,9 +89,9 @@ export default {
         // 持续时间
         duration: 0,
       });
-      const user = this.user;
+      // const user = this.user;
       try {
-        const { data } = await login(user);
+        const { data } = await login(this.user);
         this.$toast.success("登陆成功");
         this.$store.commit("setUser", data.data);
         this.$router.back();
