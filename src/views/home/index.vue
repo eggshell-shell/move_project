@@ -134,12 +134,12 @@ export default {
     text-align: center;
     background-color: #3196fa;
   }
-  /deep/ .van-button {
-    width: 600px;
-    height: 60px;
-    margin-top: 20px;
-    color: rgb(216, 218, 199);
-  }
+  // /deep/ .van-button {
+  //   width: 600px;
+  //   height: 60px;
+  //   margin-top: 20px;
+  //   color: rgb(216, 218, 199);
+  // }
   /deep/ .van-tabs__wrap {
     position: sticky;
     top: 100px;

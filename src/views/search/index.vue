@@ -19,11 +19,15 @@
     <!-- /搜索栏 -->
 
     <!-- 结果 -->
-    <search-result v-if="isResultShow" />
+    <search-result v-if="isResultShow" :searchText="searchText" />
     <!-- /结果  -->
 
     <!-- 联想建议 -->
-    <search-suggestion v-else-if="searchText" />
+    <search-suggestion
+      v-else-if="searchText"
+      :searchText="searchText"
+      @search="onSearch"
+    />
     <!-- /联想建议 -->
 
     <!-- 搜索历史记录 -->
@@ -57,8 +61,9 @@ export default {
   mounted() {},
   methods: {
     onSearch(val) {
+      this.searchText = val;
       this.isResultShow = true;
-      console.log(val);
+      // console.log(this.searchText);
     },
     onCancel() {
       this.$router.back();
@@ -69,6 +74,12 @@ export default {
 
 <style scoped lang="less">
 .search-container {
+  .van-search {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 3;
+  }
   .van-search__action {
     color: #fff;
   }
